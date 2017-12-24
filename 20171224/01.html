@@ -20,7 +20,13 @@
         console.log('読み込んだよ');
 
         //devicemotion event
-        window.addEventListener('devicemotion',function (evt) {
+        window.addEventListener('devicemotion',shakeDevice);
+
+        
+
+        //スマホを振ったら呼び出される関数
+        function shakeDevice(evt) {
+
             console.log(evt);
             //x軸y軸z軸の加速度
             var x = evt.acceleration.x;
@@ -30,7 +36,14 @@
             $('ul li:eq(0)').text('x: ' + x);
             $('ul li:eq(1)').text('y: ' + y);
             $('ul li:eq(2)').text('z: ' + z);
-        });
+
+            //スマホを振ったら
+            if ( Math.abs(x) > 10 || Math.abs(y) > 10 || Math.abs(z) > 10) {
+                $('h1').text('振り終わったよ');
+                window.removeEventListener('devicemotion')
+            }
+
+        }
 
 
 
