@@ -7,12 +7,11 @@
 </head>
 <body>
     <h1>geolocation | GPSのテスト</h1>
+    <dl id="weatherMap">
+        <dt>地域名：</dt>
+        <dd id="areaName"></dd>
+    </dl>
 
-    <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
     <script>
     //DOMの読み込み
@@ -47,7 +46,10 @@
                 url:weatherUrl,
                 dataType:'json'
             }).done(function(data) {
-                console.log(data); //通身成功
+                console.log(data); //通信成功
+
+                var areName = data.name;
+                $('#areaName').text(areaName);
 
             }).fail(function () {
                 console.log('ajax error'); //通信失敗
