@@ -30,7 +30,31 @@
 
             console.log('lat: '+ lat, 'lon: ' + lon);
 
+            setWeather(lat,lon); //緯度経度を受け渡しする
+
         });
+
+        //天気を表示する関数
+        function setWeather(lat,lon) {
+
+            //Open weather mapのAPI key（定数）
+            const var apikey = '38313987b46a8500f8226d9f415b6916';
+            //Open weather map用のURL
+            var weatherUrl = 'http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid'+ apikey;
+
+            // ajax通信
+            $.ajax({
+                url:weatherUrl,
+                dataType:'json'
+            }).done(function(data) {
+                console.log(data); //通身成功
+
+            }).fail(function () {
+                console.log('ajax error'); //通信失敗
+
+            })
+
+        }
 
         // 切り捨てて少数点第二位までにする関数
         function calLocation(num) {
