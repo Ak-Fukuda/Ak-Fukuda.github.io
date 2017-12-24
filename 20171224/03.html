@@ -55,7 +55,7 @@
                 //気温
                 var areaTemp = data.main.temp;//絶対温度
                 areaTemp = areaTemp -273.15;//摂氏
-                $('#areaName').text(Math.round(areaTemp)+'度');
+                $('#areaTemp').text(Math.round(areaTemp)+'度');
 
             }).fail(function () {
                 console.log('ajax error'); //通信失敗
