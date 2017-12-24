@@ -22,7 +22,7 @@
         //devicemotion event
         window.addEventListener('devicemotion',shakeDevice);
 
-        
+
 
         //スマホを振ったら呼び出される関数
         function shakeDevice(evt) {
@@ -38,7 +38,7 @@
             $('ul li:eq(2)').text('z: ' + z);
 
             //スマホを振ったら
-            if ( Math.abs(x) > 10 || Math.abs(y) > 10 || Math.abs(z) > 10) {
+            if ( Math.abs(x) > 1 || Math.abs(y) > 1 || Math.abs(z) > 1) {
                 $('h1').text('振り終わったよ');
                 window.removeEventListener('devicemotion')
             }
