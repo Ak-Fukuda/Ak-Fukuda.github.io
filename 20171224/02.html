@@ -29,9 +29,9 @@
 
             console.log(evt);
             //x軸y軸z軸の加速度
-            var x = evt.acceleration.x;
-            var y = evt.acceleration.y;
-            var z = evt.acceleration.z;
+            var x = evt.beta;
+            var y = evt.gamma;
+            var z = evt.alpha;
 
             $('ul li:eq(0)').text('x: ' + x);
             $('ul li:eq(1)').text('y: ' + y);
