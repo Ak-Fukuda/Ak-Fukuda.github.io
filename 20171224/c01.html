@@ -7,7 +7,7 @@
     <title>Canvas</title>
 </head>
 <body>
-    <canvas id="stage" width="1024" height="768"></canvas>
+    <canvas id="stage" width="500" height="500"></canvas>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
     <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
     <script>
@@ -17,10 +17,64 @@
             var stage = new createjs.Stage('stage');
             // 図形の描画
             var circle = new createjs.Shape();
-            circle.graphics.beginFill('#00FF00')drawcircle(0,0,40);
+            circle.graphics.beginFill('#00FF00').drawCircle(0,0,40);
             stage.addChild(circle);//stageにcircleを配置
+            circle.x = 50;
+            circle.y = 50;
+            //トゥイーンアニメーション
+            createjs.Tween.get(circle)
+            .to({x:400,y:400,alpha:0.5},1000, createjs.Ease.bounceOut)
+            .wait(500)
+            .to({x:400,y:50,alpha:1},500,createjs.Ease.cubicIn)
+            .wait(1000)
+            .to({x:50,y:50,scaleX:2,scaleY:2},400, createjs.Ease.backOut)
+            .call(nextAnime);//目的の座標とかける時間（秒）とイージーイーズ
 
-            stage.update();//描画の更新
+            function nextAnime() {
+                createjs.Tween.get(circle).to({scaleX:1,scaleY:1},2000);
+                console.log('next animation');
+                // circle.scaleX = 1;
+                // circle.scaleY = 1;
+
+
+            }
+
+            var star = new createjs.Shape();
+            star.graphics.beginFill('#FF0000').drawPolyStar(0,0,40,5,0.6,-90);//x,y,半径、頂点数、谷の深さ（割合）、起点の角度
+            stage.addChild(star);
+            star.x = stage.canvas.width/2;
+            star.y = stage.canvas.height/2;
+
+            var rect = new createjs.Shape();
+            rect.graphics.beginFill('#0000FF').drawRect(0,0,50,50);
+            stage.addChild(rect);
+            rect.x = 400;
+            rect.y = 0;
+            rect.alpha = 0.5; //透明
+            // rect.visible = false; //非表示
+
+            createjs.Ticker.addEventListener('tick',tick);
+            //requestAnimationFrameの実行
+            createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+
+            function tick() {
+                // circle.x += 5;
+                // if(circle.x > stage.canvas.width){
+                //     circle.x = 0;
+                // }
+                star.rotation += 5;
+                if(star.rotation >= 360){
+                    star.rotation = 0;
+                }
+                rect.y += 5;
+                if (rect.y > stage.canvas.height) {
+                    rect.y = 0;
+                }
+
+                stage.update();//描画の更新
+            }
+
+
 
         });
 
